@@ -38,6 +38,9 @@ The name you give your posterity goes one their legal documents, make sure its o
  - Material UI as a Component library to streamline UX and UI design of the site and app
  - Reach Router to route search results and separate pages that quick and easy
  - React Native eventually (far into the future) when the website is stable to become available on IOS and Android platforms
+ ### Deployment and Production
+ - Gitlab CI or some software with CI to manage the code base and deploy updates to the Docker Swarm
+ - Docker the website would be hosted on a cloud server and run on a container.
  
  ## Major Steps 
  - create the database, schema, tables, views, and stored procedures(functions)
