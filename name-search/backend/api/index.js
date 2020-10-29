@@ -2,6 +2,10 @@ const router = require('express-promise-router')();
 const debug = require("debug")("name-search:api");
 const db = require('../db')
 
+
+router.use('/sources', require('./source'))
+router.use('/countries', require('./country'))
+router.use('/names', require('./name'))
 // API 404 handler
 router.use((req,res,next)=>{
     let error = new Error("Not found");
