@@ -14,7 +14,7 @@ source.findSource = async (source_name) => {
     debug(JSON.stringify(query))
   
     const result = await pg.query(query)
-    return joinjs.map(result.rows, relationMaps, 'sourceMap', 'source_')
+    return joinjs.map(result.rows, relationMaps, 'sourceMap', 'source_')[0]
   }
 
   source.addSource = async (source_name) => {
@@ -26,7 +26,7 @@ source.findSource = async (source_name) => {
     debug(JSON.stringify(query))
   
     const result = await pg.query(query)
-    return joinjs.map(result.rows, relationMaps, 'sourceMap', 'source_')
+    return joinjs.map(result.rows, relationMaps, 'sourceMap', 'source_')[0]
   }
 
   module.exports = source

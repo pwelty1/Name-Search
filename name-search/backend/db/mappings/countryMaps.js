@@ -1,9 +1,10 @@
 module.exports = [
     {
-      mapId: 'sourceMap',
+      mapId: 'countryMap',
       idProperty: 'uuid',
       properties: [
-        {name: 'name', column: 'source'},
+        'name',
+        'language'
       ]
     }
   ]
