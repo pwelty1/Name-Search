@@ -19,7 +19,7 @@ router.get('/:source', handlers.get_source = async (req, res) => {
     }
   })
 
-router.post('/', handlers.add_source = async (req, res) => {
+router.post('/',bodyParser.json(), handlers.add_source = async (req, res) => {
     try {
       const source = await db.source.addSource(req.body.source)
       res.status(200).json({

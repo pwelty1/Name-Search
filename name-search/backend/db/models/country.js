@@ -1,7 +1,7 @@
 const pg = require('../pg')
 const joinjs = require('join-js').default
 const relationMaps = require('../mappings')
-const debug = require('debug')('ns:db:country')
+const debug = require('debug')('name-search:db:country')
 
 const country = {}
 
@@ -11,7 +11,7 @@ country.findCountryByName = async (country_name) => {
       values: [country_name]
     }
   
-    debug(JSON.stringify(query))
+    debug(query)
   
     const result = await pg.query(query)
     return joinjs.map(result.rows, relationMaps, 'countryMap', 'country_')[0]
@@ -23,7 +23,7 @@ country.addCountry = async (country_name, country_language) => {
       values: [country_name, country_language]
     }
   
-    debug(JSON.stringify(query))
+    debug(query)
   
     const result = await pg.query(query)
     return joinjs.map(result.rows, relationMaps, 'countryMap', 'country_')[0]

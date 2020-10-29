@@ -1,7 +1,7 @@
 const pg = require('../pg')
 const joinjs = require('join-js').default
 const relationMaps = require('../mappings')
-const debug = require('debug')('ns:db:name')
+const debug = require('debug')('name-search:db:name')
 
 const name = {}
 
@@ -11,7 +11,7 @@ name.findNamebySubstr = async (substr) => {
       values: [substr]
     }
   
-    debug(JSON.stringify(query))
+    debug(query)
   
     const result = await pg.query(query)
     return joinjs.map(result.rows, relationMaps, 'nameMap', 'name_')
@@ -23,7 +23,7 @@ name.addName = async (name, name_meaning, num_syllables, char_length, country_uu
       values: [name, name_meaning, num_syllables, char_length, country_uuid, source_uuid]
     }
   
-    debug(JSON.stringify(query))
+    debug(query)
   
     const result = await pg.query(query)
     return joinjs.map(result.rows, relationMaps, 'nameMap', 'name_')[0]
