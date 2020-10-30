@@ -35,6 +35,12 @@ h1 {
   z-index: -1;
 }
 
+.fabContainer{
+  position: absolute;
+  bottom: 5%;
+  right: 13%;
+}
+
 @keyframes animate {
   0%,
   100% {
