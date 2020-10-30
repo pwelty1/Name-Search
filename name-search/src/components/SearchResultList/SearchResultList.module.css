@@ -1,0 +1,55 @@
+.list {
+    outline: none;
+  }
+  
+  .line {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  .item {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 8px;
+  }
+  
+  .itemHover:hover {
+    background: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .primaryText {
+    margin: 0;
+    margin-bottom: 8px;
+    text-transform: capitalize;
+  }
+
+  .card{
+      width: 100%;
+      padding: 5px;
+  }
+  
+  .secondaryText {
+    margin: 0;
+    text-transform: capitalize;
+  }
+  
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  
+  .emptyList{
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-disabled);
+    font-size: 1.17em;
+  }
+  
