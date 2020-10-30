@@ -12,7 +12,7 @@ router.get('/', handlers.get_names = async (req, res) => {
         var bySubstring = req.query.bySubstring; //type: Boolean
         var countryName = req.query.countryName; //type: String
         var numSyllables = req.query.numSyllables; //type: Number (positive integer)
-        var matchCharLength = req.query.matchCharLength; //type: Boolean
+        var charLength = req.query.charLength; //type: Number (positive integer)
 
         // Get Name
         if (name === undefined) {
@@ -33,16 +33,8 @@ router.get('/', handlers.get_names = async (req, res) => {
         }
 
         // Character Length
-        if (matchCharLength !== undefined) {
-            matchCharLength = matchCharLength.toLowerCase();
-            if (!(matchCharLength == "true" || matchCharLength == "false")) {
-                matchCharLength = false;
-            }
-        }
-
-        var charLength = undefined;
-        if (matchCharLength == "true") {
-            charLength = name.length;
+        if (isNaN(charLength) || charLength < 1) {
+            charLength = undefined;
         }
 
 
