@@ -8,7 +8,7 @@ router.get('/', handlers.get_names = async (req, res) => {
     try {
         // Variables will either be valid or undefined
 
-        const name = req.query.search; // type: String
+        var name = req.query.search; // type: String
         var bySubstring = req.query.bySubstring; //type: Boolean
         var countryName = req.query.countryName; //type: String
         var numSyllables = req.query.numSyllables; //type: Number (positive integer)
@@ -16,11 +16,7 @@ router.get('/', handlers.get_names = async (req, res) => {
 
         // Get Name
         if (name === undefined) {
-            res.status(400).json({
-                success: false,
-                error: "Please include a search parameter"
-            });
-            return;
+            name = "";
         }
 
         // check substring
@@ -49,13 +45,38 @@ router.get('/', handlers.get_names = async (req, res) => {
             charLength = name.length;
         }
 
+
+        var ifUndefThenNull = function(input) {
+            if (input == undefined) {
+                return null;
+            }
+            return input;
+        }
+
+        name = ifUndefThenNull(name);
+        bySubstring = ifUndefThenNull(bySubstring);
+        countryName = ifUndefThenNull(countryName);
+        numSyllables = ifUndefThenNull(numSyllables);
+        charLength = ifUndefThenNull(charLength);
+
+
         console.log("Name: " + name);
         console.log("bySubstring: " + bySubstring);
         console.log("countryName: " + countryName);
         console.log("numSyllables: " + numSyllables);
         console.log("charLength: " + charLength);
 
-        const nameSearchResult = await db.name.findNamebySubstr(name);
+        var nameSearchResult;
+        if (countryName !== null) {
+            nameSearchResult = await db.name.findNamebySubstrCountry(name, countryName);
+        } else if (numSyllables !== null) {
+            nameSearchResult = await db.name.findNamebySubstrSyllables(name, numSyllables);
+        } else if (charLength !== null) {
+            nameSearchResult = await db.name.findNamebySubstrLength(name, charLength);
+        } else {
+            nameSearchResult = await db.name.findNamebySubstr(name);
+        }
+
         res.status(200).json({
             success: true,
             data: nameSearchResult
