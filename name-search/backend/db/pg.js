@@ -9,6 +9,6 @@ const pool = new Pool({
 
 pool.on('error', err=>debug(err));
 
-debug("Database ready");
+debug("PostgreSQL Database ready");
 
 module.exports = pool;

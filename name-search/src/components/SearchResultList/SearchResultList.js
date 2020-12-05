@@ -24,7 +24,7 @@ export default function SearchResultList({list}) {
     )
   }
   if(list.length < 1)
-    return (<div className={styles.emptyList}>No Names found</div>)
+    return (<div className={styles.emptyList}></div>)
 
 
     return (

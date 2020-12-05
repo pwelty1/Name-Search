@@ -4,6 +4,11 @@ const db = require('../db')
 const bodyParser = require('body-parser')
 const debug = require('debug')('ns:api:name')
 
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+const NameSchema = new Schema({}, { strict: false });
+const Name = mongoose.model('Name', NameSchema)
+
 router.get('/', handlers.get_names = async (req, res) => {
     try {
         // Variables will either be valid or undefined
@@ -82,31 +87,45 @@ router.get('/', handlers.get_names = async (req, res) => {
 })
 
 router.post('/', bodyParser.json(), handlers.add_name = async (req, res) => {
+    // try {
+    //     let source = {}
+    //     if(req.body.source != null){
+    //         source = await db.source.findSource(req.body.source)
+    //     }
+    //     else{
+    //         source = {uuid: null}
+    //     }
+    //     let country = {}
+    //     if(req.body.country != null){
+    //         country = await db.country.findCountryByName(req.body.country)
+    //     }
+    //     else{
+    //         country = {uuid: null}
+    //     }
+    //     const name = await db.name.addName(req.body.name, req.body.meaning, req.body.num_syllables, req.body.name.length, country.uuid, source.uuid)
+    //     res.status(200).json({
+    //         success: true,
+    //         data: name
+    //     });
+    // } catch (error) {
+    //     res.status(500).json({
+    //         success: false,
+    //         error: error.message
+    //     });
+    // }
     try {
-        let source = {}
-        if(req.body.source != null){
-            source = await db.source.findSource(req.body.source)
-        }
-        else{
-            source = {uuid: null}
-        }
-        let country = {}
-        if(req.body.country != null){
-            country = await db.country.findCountryByName(req.body.country)
-        }
-        else{
-            country = {uuid: null}
-        }
-        const name = await db.name.addName(req.body.name, req.body.meaning, req.body.num_syllables, req.body.name.length, country.uuid, source.uuid)
+        const name = new Name(req.body)
+        name.save()
         res.status(200).json({
-            success: true,
-            data: name
-        });
+                success: true,
+                data: name
+            });
     } catch (error) {
         res.status(500).json({
-            success: false,
-            error: error.message
-        });
+                success: false,
+                error: error.message
+            });
+        
     }
 })
 
