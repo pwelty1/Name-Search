@@ -15,7 +15,7 @@ export default function SearchResultList({list}) {
         <Paper elevation={2} className={styles.card}>
         <div className={styles.info}>
           <h3 className={styles.primaryText}>{item.name}</h3>
-          <p className={styles.secondaryText}>Meaning: {item.meaning}</p>
+          <p className={styles.secondaryText}>Meaning: {item.meaning !== null? item.meaning : "none"}</p>
           <p className={styles.secondaryText}>Country of Origin: {item.country !== null? item.country.name : "none"}</p>
           <p className={styles.secondaryText}>Source: {item.source !== null? item.source.name : "none"}</p>
         </div>

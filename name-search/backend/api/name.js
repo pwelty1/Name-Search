@@ -1,6 +1,7 @@
 const router = require('express-promise-router')()
 const handlers = router._handlers = {}
 const db = require('../db')
+const mongodb = require('../mongodb')
 const bodyParser = require('body-parser')
 const debug = require('debug')('ns:api:name')
 
@@ -63,15 +64,33 @@ router.get('/', handlers.get_names = async (req, res) => {
         console.log("numSyllables: " + numSyllables);
         console.log("charLength: " + charLength);
 
+        const regex = new RegExp(name);
+        console.log(regex)
+
         var nameSearchResult;
         if (countryName !== null) {
-            nameSearchResult = await db.name.findNamebySubstrCountry(name, countryName);
+            // nameSearchResult = await db.name.findNamebySubstrCountry(name, countryName);
+            nameSearchResult = await Name.find({
+                name: regex,
+            }).where('country.name').equals(countryName)
+
         } else if (numSyllables !== null) {
-            nameSearchResult = await db.name.findNamebySubstrSyllables(name, numSyllables);
+            // nameSearchResult = await db.name.findNamebySubstrSyllables(name, numSyllables);\
+            nameSearchResult = await Name.find({
+                name: regex,
+            }).where('syllables', parseInt(numSyllables))
+
         } else if (charLength !== null) {
-            nameSearchResult = await db.name.findNamebySubstrLength(name, charLength);
+            // nameSearchResult = await db.name.findNamebySubstrLength(name, charLength);
+            nameSearchResult = await Name.find({
+                name: regex,
+            }).where('length', parseInt(charLength))
+
         } else {
-            nameSearchResult = await db.name.findNamebySubstr(name);
+            // nameSearchResult = await db.name.findNamebySubstr(name);
+            nameSearchResult = await Name.find({
+                name: regex
+            })
         }
 
         res.status(200).json({
